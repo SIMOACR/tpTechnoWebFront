@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { DispatcherService } from './dispatcher.service';
+import {DispatcherService} from './dispatcher.service';
 
 describe('DispatcherService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
