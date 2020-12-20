@@ -1,3 +1,8 @@
 export const environment = {
-  production: true
+  production: true,
+  apiUrl: '/api',
+  resourceUri: {
+    authenticate: '/authenticate',
+    user: '/user'
+  }
 };

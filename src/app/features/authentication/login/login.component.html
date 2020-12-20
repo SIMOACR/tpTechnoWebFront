@@ -1,0 +1,56 @@
+<div class="container w-100">
+  <h2>{{'Login :'}}</h2>
+  <form #f="ngForm" (ngSubmit)="submit()">
+    <div class="form-group">
+      <mat-form-field>
+        <label>
+          {{'Username'}}
+        </label>
+        <input
+          matInput
+          type="text"
+          name="username"
+          id="username"
+          [(ngModel)]="userCredentials.userName"
+          required
+          #userName="ngModel"
+        />
+        <mat-error
+          *ngIf="userName.invalid && userName.dirty"
+          class="form-text text-muted required"
+        >
+          {{'required'}}
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="form-group">
+      <mat-form-field>
+        <label>
+          {{'Password'}}
+        </label>
+        <input
+          matInput
+          type="password"
+          name="password"
+          id="password"
+          [(ngModel)]="userCredentials.password"
+          required
+          #password="ngModel"
+        />
+        <mat-error
+          *ngIf="password.invalid && password.dirty"
+          class="form-text text-muted required"
+        >
+          {{'required'}}
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <button
+      [disabled]="f.invalid"
+      type="submit"
+      class="btn btn-lg btn-primary mx-4">{{ 'Login'}}
+    </button>
+
+  </form>
+</div>
