@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 
 @Injectable({
@@ -13,27 +13,30 @@ export class StorageService {
     private http: HttpClient
   ) { }
 
-  create(url: string, payload: any): Observable<any> {
+  createWithoutHeader(url: string, payload: any): Observable<any> {
     return this.http.post(url, payload);
   }
 
-  createWithType(url: string, payload: any, type: any): Observable<any> {
-    return this.http.post(url, payload, type);
+  createAuthorizationHeader() {
+    return new HttpHeaders({ Authorization: 'Bearer ' + localStorage.getItem('tokenId')});
+  }
+
+  create(url: string, payload: any): Observable<any> {
+    return this.http.post(url, payload, { headers: this.createAuthorizationHeader() });
   }
 
   read(url: string): Observable<any> {
-    return this.http.get(url);
-  }
-
-  readWithPayload(url: string, payload: any): Observable<any> {
-    return this.http.get(url, payload);
+    // @ts-ignore
+    return this.http.get(url, { headers: this.createAuthorizationHeader() });
   }
 
   update(url: string, payload: any): Observable<any> {
-    return this.http.put(url, payload);
+    // @ts-ignore
+    return this.http.put(url, payload, { headers: this.createAuthorizationHeader() });
   }
 
   delete(url: string): Observable<any> {
-    return this.http.delete(url);
+    // @ts-ignore
+    return this.http.delete(url, { headers: this.createAuthorizationHeader() });
   }
 }

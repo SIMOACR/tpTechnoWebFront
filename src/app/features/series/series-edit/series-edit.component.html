@@ -1,0 +1,63 @@
+<div class="container w-100 d-flex justify-content-center" *ngIf="isLoaded">
+  <form #f="ngForm" (ngSubmit)="submit()">
+    <div class="form-group">
+      <mat-form-field>
+        <label>
+          {{'Title'}}
+        </label>
+        <input
+          matInput
+          type="text"
+          name="title"
+          id="title"
+          [(ngModel)]="series.title"
+          required
+          #seriesTitle="ngModel"
+        />
+        <mat-error
+          *ngIf="seriesTitle.invalid && seriesTitle.dirty"
+          id="helpId"
+          class="form-text text-muted required"
+        >
+          {{'required'}}
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-group">
+      <mat-form-field>
+        <label>
+          {{'Description'}}
+        </label>
+        <input
+          matInput
+          type="text"
+          name="description"
+          id="description"
+          [(ngModel)]="series.description"
+          required
+          #seriesDescription="ngModel"
+        />
+        <mat-error
+          *ngIf="seriesDescription.invalid && seriesDescription.dirty"
+          class="form-text text-muted required"
+        >
+          {{'required'}}
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <button
+      [disabled]="f.invalid"
+      type="submit"
+      class="btn btn-lg btn-primary mx-4">{{ 'submit'}}
+    </button>
+
+    <button
+      type="button"
+      (click)="redirectToSeriesList()"
+      class="btn btn-lg btn-danger mx-4">{{ 'cancel' }}
+    </button>
+
+  </form>
+</div>

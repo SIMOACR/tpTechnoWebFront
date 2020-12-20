@@ -3,6 +3,8 @@ export const environment = {
   apiUrl: '/api',
   resourceUri: {
     authenticate: '/authenticate',
-    user: '/user'
+    user: '/user',
+    series: '/series',
+    event: '/event'
   }
 };

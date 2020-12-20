@@ -19,7 +19,7 @@ export class UserManagerService implements IManager<IUser>{
   ) { }
 
   create(data: IChanges): Observable<IUser> {
-    return this.storageService.create(this.url, data);
+    return this.storageService.createWithoutHeader(this.url, data);
   }
 
   delete(target: IUser): Observable<boolean> {

@@ -17,7 +17,7 @@ export class AuthenticationManagerService {
   ) { }
 
   authenticate(data: IChanges): Observable<IAuthenticationResponse> {
-    return this.storageService.create(this.url, data);
+    return this.storageService.createWithoutHeader(this.url, data);
   }
 
 }

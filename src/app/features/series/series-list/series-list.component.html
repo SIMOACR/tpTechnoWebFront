@@ -1,0 +1,57 @@
+<div class="container">
+  <div class="row m-2">
+    <a [routerLink]="['../edit']" class="btn btn-light">{{ 'Add Series'}}</a>
+  </div>
+
+  <div *ngIf="!isLoaded" class="spinner w-100 my-5 p-0 d-flex justify-content-center">
+    <mat-spinner></mat-spinner>
+  </div>
+
+  <mat-form-field *ngIf="isLoaded">
+    <input matInput #search (keyup)="applyFilter(search.value)" placeholder="{{'search'}}">
+  </mat-form-field>
+
+  <table
+    [style.visibility]="isLoaded ? 'visible' : 'hidden'"
+    mat-table
+    [dataSource]="tableDataSource"
+    matSort
+    class="w-100 mat-elevation-z8"
+    aria-describedby="facility-list"
+  >
+
+    <ng-container matColumnDef="title">
+      <th id="title" mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'Title'}} </th>
+      <td class="title" mat-cell *matCellDef="let element">
+        {{element.title}}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="description">
+      <th id="description" mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'Description'}} </th>
+      <td class="description" mat-cell *matCellDef="let element">
+        {{element.description}}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="action">
+      <th id="action" mat-header-cell *matHeaderCellDef> {{ 'action'}} </th>
+      <td mat-cell *matCellDef="let element">
+        <a class="btn btn-light mx-2" [routerLink]="['../edit', element.id]">{{ 'update'}}</a>
+        <button (click)="deleteSeries(element)" class="btn btn-danger mx-2">{{ 'delete'}}</button>
+        <a class="btn btn-light mx-2" [routerLink]="['../event', element.id]">{{ 'update'}}</a>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+  </table>
+
+  <mat-paginator
+    [style.visibility]="isLoaded ? 'visible' : 'hidden'"
+    [pageSizeOptions]="[10, 20, 30]"
+    showFirstLastButtons
+  ></mat-paginator>
+
+</div>

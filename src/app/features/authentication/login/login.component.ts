@@ -4,6 +4,8 @@ import {DispatcherService} from '../../../services/dispatcher/dispatcher.service
 import {Action} from '../../../services/dispatcher/action';
 import {ActionTypes} from '../../../services/dispatcher/action-types.enum';
 import {IAuthenticationResponse} from '../../../@entities/IAuthenticationResponse';
+import {Subject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -14,6 +16,8 @@ export class LoginComponent implements OnInit {
 
   userCredentials = {} as IUserCredentials;
   authenticationResponse = {} as IAuthenticationResponse;
+  destroy$: Subject<boolean> = new Subject<boolean>();
+
   constructor(
     private dispatcherService: DispatcherService
   ) {
@@ -23,12 +27,14 @@ export class LoginComponent implements OnInit {
   }
 
   submit() {
-    this.dispatcherService.dispatch(new Action(ActionTypes.AUTHENTICATE, this.userCredentials)).
-    subscribe(
+    this.dispatcherService.dispatch(new Action(ActionTypes.AUTHENTICATE, this.userCredentials))
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(
       data => {
         console.log(data.result);
         this.authenticationResponse = data.result;
         localStorage.setItem('tokenId', this.authenticationResponse.jwt);
+        localStorage.setItem('username', this.userCredentials.userName);
       });
   }
 

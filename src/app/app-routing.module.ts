@@ -5,9 +5,14 @@ import {Screen1Component} from './screens/screen1/screen1.component';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'authentication',
     component: Screen1Component,
     loadChildren: './features/authentication/authentication.module#AuthenticationModule'
+  },
+  {
+    path: 'series',
+    component: Screen1Component,
+    loadChildren: './features/series/series.module#SeriesModule'
   }
 ];
 
